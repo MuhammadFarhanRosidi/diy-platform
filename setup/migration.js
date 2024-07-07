@@ -19,7 +19,7 @@ const pool = require("./connection");
             description TEXT,
             "totalVote" INTEGER,
             "imageUrl" VARCHAR(100),
-            "createDate" DATE,
+            "createdDate" DATE,
             "AuthorId" INTEGER,
                 FOREIGN KEY("AuthorId")
                 REFERENCES "Authors"("id")

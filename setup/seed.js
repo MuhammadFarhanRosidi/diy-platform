@@ -16,7 +16,7 @@ const fs = require("fs").promises;
         VALUES ${author}
         `
         let insertPosts = `
-        INSERT INTO "Posts" (title, difficulty, "estimatedTime", description, "totalVote", "imageUrl", "createDate", "AuthorId")
+        INSERT INTO "Posts" (title, difficulty, "estimatedTime", description, "totalVote", "imageUrl", "createdDate", "AuthorId")
         VALUES ${post}
         `
         await pool.query(insertAuthors)

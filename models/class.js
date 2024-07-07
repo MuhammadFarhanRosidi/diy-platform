@@ -4,6 +4,14 @@ class Author {
         this.fullName = fullName
         this.gender = gender
     }
+
+    get formatName() {
+        if (this.gender === "Male") {
+            return `Mr. ${this.fullName}`
+        } else {
+            return `Ms. ${this.fullName}`
+        }
+    }
 }
 
 class AuthorDetail extends Author {
@@ -33,6 +41,14 @@ class PostDetail extends Post {
         this.createdDate = createdDate
         this.AuthorId = AuthorId
         this.authorName = authorName
+    }
+
+    get formatCreatedDate() {
+        const date = new Date(this.createdDate)
+        const year = date.getFullYear()
+        const month = String(date.getMonth() + 1).padStart(2, '0')
+        const day = String(date.getDate()).padStart(2, '0')
+        return `${year}-${month}-${day}`
     }
 }
 
