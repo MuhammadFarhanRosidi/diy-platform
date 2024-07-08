@@ -147,6 +147,8 @@ class Model{
             let words = descriptionInput.split(" ")
             if(!title) {
                 errors.push("Title is required")
+            } else if(title.length > 100) {
+                errors.push("Post title maximum character is 100")
             }
             if(!AuthorId) {
                 errors.push("Author is required")
@@ -156,26 +158,20 @@ class Model{
             }
             if(!estimatedTime) {
                 errors.push("Estimated Time is required")
+            } else if(estimatedTime < 5) {
+                errors.push("Minimum estimated time is 5 minutes")
             }
             if(!imageUrl) {
                 errors.push("Image Url is required")
             }
             if(!createdDate) {
                 errors.push("Created Date is required")
+            } else if(date > dateNow) {
+                errors.push("Maximum created date is today")
             }
             if(!description) {
                 errors.push("Description is required")
-            }
-            if(estimatedTime < 5) {
-                errors.push("Minimum estimated time is 5 minutes")
-            }
-            if(title.length > 100) {
-                errors.push("Post title maximum character is 100")
-            }
-            if(date > dateNow) {
-                errors.push("Maximum created date is today")
-            }
-            if(words.length < 10) {
+            } else if(words.length < 10) {
                 errors.push("Minimum word in description is 10")
             }
             return errors

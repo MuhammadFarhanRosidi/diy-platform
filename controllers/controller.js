@@ -92,7 +92,7 @@ class Controller {
         } catch (error) {
             let {id} = req.params
             if(error.name === 'ValidationError') {
-                res.redirect(`/posts/${id}/update?errors=${error.errors}`)
+                res.redirect(`/posts/${id}/edit?errors=${error.errors}`)
             } else {
                 res.send(error)
             }
