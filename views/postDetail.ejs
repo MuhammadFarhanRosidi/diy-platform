@@ -1,12 +1,7 @@
 <%- include('./partial/_head', {title: 'Post Detail'}) %>
 <body> 
   <!-- As a heading -->
-  <nav class="navbar bg-body-tertiary">
-    <div class="container-fluid">
-      <span class="navbar-brand mb-0 h1">DIY Platform</span>
-    </div>
-  </nav>
-
+  <%- include('./partial/_navbar') %>
   <main class="container">
     <h1><%= data.title %></h1>
     <div class="d-flex">
