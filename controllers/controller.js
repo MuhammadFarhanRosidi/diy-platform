@@ -29,7 +29,10 @@ class Controller {
 
     static async posts(req, res) {
         try {
-            let data = await Model.posts()
+            let {search} = req.query
+            console.log(search) // authorName: undefined
+            let data = await Model.posts(search)
+            console.log(data)
             res.render('posts', {data})
         } catch (error) {
             res.send(error)

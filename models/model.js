@@ -33,13 +33,17 @@ class Model{
         }
     }
 
-    static async posts() {
+    static async posts(search) {
         try {
             let query = `
-            SELECT * 
+            SELECT p.* 
             FROM "Posts" p 
-            ORDER BY "totalVote" DESC;
             `
+            console.log(search)
+            if(search) {
+                query += `WHERE p.title ILIKE '%${search}%'`
+            }
+            query += `ORDER BY "totalVote" DESC`
             let { rows } = await pool.query(query)
             rows = rows.map(el => new PostDetail(el.id, el.title, el.difficulty, el.totalVote, el.estimatedTime, el.description, el.imageUrl, el.createdDate, el.AuthorId, el.authorName))
             return rows

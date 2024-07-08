@@ -16,7 +16,10 @@
 
   <main class="container">
   <a type="button" class="btn btn-primary" href="/posts/add">Add Post</a>
-
+  <form action="/posts" method="get" class="d-flex">
+    <input type="text" name="search" class="form-control">
+    <input type="submit" value="search" class="btn btn-dark">
+  </form>
   <table class="table">
     <thead>
       <tr>
