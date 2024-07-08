@@ -30,9 +30,7 @@ class Controller {
     static async posts(req, res) {
         try {
             let {search} = req.query
-            console.log(search) // authorName: undefined
             let data = await Model.posts(search)
-            console.log(data)
             res.render('posts', {data})
         } catch (error) {
             res.send(error)
@@ -51,8 +49,9 @@ class Controller {
     
     static async postAdd(req, res) {
         try {
+            let {errors} = req.query
             let data = await Model.authors()
-            res.render('postAdd', {data})
+            res.render('postAdd', {data, errors})
         } catch (error) {
             res.send(error)
         }
@@ -64,16 +63,21 @@ class Controller {
             await Model.handlerPostAdd(title, AuthorId, difficulty, estimatedTime, imageUrl, createdDate, description)
             res.redirect('/posts')
         } catch (error) {
-            res.send(error)
+            if(error.name === "ValidationError") {
+                res.redirect(`/posts/add?errors=${error.errors}`)
+            } else {
+                res.send(error)
+            }
         }
     }
 
     static async postEdit(req, res) {
         try {
+            let {errors} = req.query
             let {id} = req.params
             let authors = await Model.authors()
             let data = await Model.postDetail(id)
-            res.render('postEdit', {data, authors})
+            res.render('postEdit', {data, authors, errors})
         } catch (error) {
             res.send(error)
         }
@@ -86,7 +90,12 @@ class Controller {
             await Model.handlerPostEdit(title, AuthorId, difficulty, estimatedTime, imageUrl, createdDate, description, totalVote, id)
             res.redirect('/posts')
         } catch (error) {
-            res.send(error)
+            let {id} = req.params
+            if(error.name === 'ValidationError') {
+                res.redirect(`/posts/${id}/update?errors=${error.errors}`)
+            } else {
+                res.send(error)
+            }
         }
     }
 

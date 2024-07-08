@@ -15,6 +15,12 @@
   </nav>
 
   <main class="container">
+    <% if(errors) { %>
+        <% errors = errors.split(",") %>
+        <% errors.forEach(el => { %>
+            <p style="color: red;"><%= el %></p>
+        <% }) %>
+    <% } %>
     <h1>Add New Post</h1>
     <form action="/posts/add" method="post">
         <div>

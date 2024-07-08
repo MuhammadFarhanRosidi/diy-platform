@@ -36,10 +36,11 @@ class Model{
     static async posts(search) {
         try {
             let query = `
-            SELECT p.* 
+            SELECT p.*, a."fullName" AS "authorName"
             FROM "Posts" p 
+            INNER JOIN "Authors" a 
+            ON a.id = p."AuthorId"
             `
-            console.log(search)
             if(search) {
                 query += `WHERE p.title ILIKE '%${search}%'`
             }
@@ -70,6 +71,10 @@ class Model{
 
     static async handlerPostAdd(title, AuthorId, difficulty, estimatedTime, imageUrl, createdDate, description) {
         try {
+            let errors = await Model.validation(title, AuthorId, difficulty, estimatedTime, imageUrl, createdDate, description)
+            if(errors.length) {
+                throw {name: 'ValidationError', errors}
+            }
             let query = `
             INSERT INTO "Posts" (title, difficulty, "estimatedTime", description, "totalVote", "imageUrl", "createdDate", "AuthorId")
             VALUES ($1, $2, $3, $4, $5, $6, $7, $8);
@@ -83,6 +88,10 @@ class Model{
     
     static async handlerPostEdit(title, AuthorId, difficulty, estimatedTime, imageUrl, createdDate, description, totalVote, id) {
         try {
+            let errors = await Model.validation(title, AuthorId, difficulty, estimatedTime, imageUrl, createdDate, description)
+            if(errors.length) {
+                throw {name: 'ValidationError', errors}
+            }
             let query = `
             UPDATE "Posts" 
             SET title = $1,
@@ -124,6 +133,52 @@ class Model{
             `
             await pool.query(query, [id])
             return
+        } catch (error) {
+            throw(error)
+        }
+    }
+
+    static async validation(title, AuthorId, difficulty, estimatedTime, imageUrl, createdDate, description) {
+        try {
+            let errors = []
+            let date = new Date(createdDate)
+            let dateNow = new Date()
+            let descriptionInput = description
+            let words = descriptionInput.split(" ")
+            if(!title) {
+                errors.push("Title is required")
+            }
+            if(!AuthorId) {
+                errors.push("Author is required")
+            }
+            if(!difficulty) {
+                errors.push("Difficulty is required")
+            }
+            if(!estimatedTime) {
+                errors.push("Estimated Time is required")
+            }
+            if(!imageUrl) {
+                errors.push("Image Url is required")
+            }
+            if(!createdDate) {
+                errors.push("Created Date is required")
+            }
+            if(!description) {
+                errors.push("Description is required")
+            }
+            if(estimatedTime < 5) {
+                errors.push("Minimum estimated time is 5 minutes")
+            }
+            if(title.length > 100) {
+                errors.push("Post title maximum character is 100")
+            }
+            if(date > dateNow) {
+                errors.push("Maximum created date is today")
+            }
+            if(words.length < 10) {
+                errors.push("Minimum word in description is 10")
+            }
+            return errors
         } catch (error) {
             throw(error)
         }
