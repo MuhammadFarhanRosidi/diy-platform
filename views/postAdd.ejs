@@ -11,14 +11,19 @@
     <% } %>
     <h1>Add New Post</h1>
     <form action="/posts/add" method="post">
+        
         <div>
-            <label for="title">Title</label>
-            <input type="text" name="title" id="title" />
-        </div>
-        <div>
+            <div class="row g-3 align-items-center">
+                <div class="col-auto">
+                  <label for="title" class="col-form-label">Title</label>
+                </div>
+                <div class="col-auto">
+                  <input type="text" name="title" id="title" class="form-control">
+                </div>
+            </div>
             <div>
                 <label for="AuthorId">Author</label>
-                <select type="text" name="AuthorId" id="AuthorId">
+                <select type="text" name="AuthorId" id="AuthorId" class="form-select" aria-label="Default select example">
                     <option value="null" selected disabled>Choose</option>
                     <% data.forEach(el => { %>
                         <option value="<%= el.id %>"><%= el.fullName %></option>
@@ -26,31 +31,30 @@
                 </select>
             </div>
             <div>
-                <label for="">Difficulty</label>
-                <select type="text" name="difficulty" id="difficulty">
+                <label for="difficulty">Difficulty</label>
+                <select type="text" name="difficulty" id="difficulty" class="form-select" aria-label="Default select example">
                     <option value="Easy">Easy</option>
                     <option value="Medium">Medium</option>
                     <option value="Hard">Hard</option>
                 </select>
             </div>
             <div>
-                <label for="estimatedTime">Estimated Time</label>
-                <input type="number" name="estimatedTime" id="estimatedTime" />
-                <label for="estimatedTime">Minutes</label>
+                <label for="estimatedTime">Estimated Time in Minutes</label>
+                <input type="number" name="estimatedTime" id="estimatedTime" class="form-control"/>
             </div>
             <div>
                 <label for="imageUrl">Image Url</label>
-                <input type="text" name="imageUrl" id="imageUrl" />
+                <input type="text" name="imageUrl" id="imageUrl" class="form-control"/>
             </div>
             <div>
                 <label for="createdDate">Created Date</label>
-                <input type="date" name="createdDate" id="createdDate" />
+                <input type="date" name="createdDate" id="createdDate" class="form-control"/>
             </div>
             <div>
                 <label for="description">Description</label> <br>
-                <textarea name="description" id="description"></textarea>
+                <textarea name="description" id="description" class="form-control"></textarea>
             </div>
-        </div>
+        </div> <br> <br>
         <button type="submit" class="btn btn-dark">Submit</button>
     </form>
   </main>

@@ -3,9 +3,10 @@ const { AuthorDetail, PostDetail } = require("./class")
 
 class Model{
     static async authors() {
-        try {
+        try { //!ururtkan id
             let query = `
             SELECT * FROM "Authors"
+            ORDER BY id
             `
             let { rows } = await pool.query(query)
             rows = rows.map(el => new AuthorDetail(el.id, el.fullName, el.gender))
@@ -18,7 +19,7 @@ class Model{
     static async detail() {
         try {
             let query = `
-            SELECT a.id, a."fullName", a.gender, COALESCE(count(p.id), 0) AS "totalPost", COALESCE (SUM(p."totalVote"), 0) AS "totalVote", CAST(COALESCE(avg(p."estimatedTime"), 0) AS DOUBLE PRECISION) AS "averageTime"
+            SELECT a.id, a."fullName", a.gender, COALESCE(count(p.id), 0) AS "totalPost", COALESCE (SUM(p."totalVote"), 0) AS "totalVote", CAST(COALESCE(avg(p."estimatedTime"), 0) AS FLOAT) AS "averageTime"
             FROM "Authors" a
             LEFT JOIN "Posts" p
             ON p."AuthorId" = a.id
@@ -42,9 +43,9 @@ class Model{
             ON a.id = p."AuthorId"
             `
             if(search) {
-                query += `WHERE p.title ILIKE '%${search}%'`
+                query += ` WHERE p.title ILIKE '%${search}%'`
             }
-            query += `ORDER BY "totalVote" DESC`
+            query += ` ORDER BY "totalVote" DESC`
             let { rows } = await pool.query(query)
             rows = rows.map(el => new PostDetail(el.id, el.title, el.difficulty, el.totalVote, el.estimatedTime, el.description, el.imageUrl, el.createdDate, el.AuthorId, el.authorName))
             return rows
@@ -58,7 +59,7 @@ class Model{
             let query = `
             SELECT p.*, a."fullName" AS "authorName"
             FROM "Posts" p
-            LEFT JOIN "Authors" a 
+            INNER JOIN "Authors" a 
             ON a.id = p."AuthorId" 
             WHERE p.id = ${id};
             `
