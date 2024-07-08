@@ -52,4 +52,4 @@ class PostDetail extends Post {
     }
 }
 
-module.exports = { AuthorDetail, PostDetail }
+module.exports = { Author, Post, AuthorDetail, PostDetail }

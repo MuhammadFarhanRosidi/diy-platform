@@ -1,5 +1,5 @@
 const pool = require("../setup/connection")
-const { AuthorDetail, PostDetail } = require("./class")
+const { AuthorDetail, PostDetail, Author, Post } = require("./class")
 
 class Model{
     static async authors() {
@@ -9,7 +9,7 @@ class Model{
             ORDER BY id
             `
             let { rows } = await pool.query(query)
-            rows = rows.map(el => new AuthorDetail(el.id, el.fullName, el.gender))
+            rows = rows.map(el => new Author(el.id, el.fullName, el.gender))
             return rows
         } catch (error) {
             throw(error)
@@ -47,7 +47,7 @@ class Model{
             }
             query += ` ORDER BY "totalVote" DESC`
             let { rows } = await pool.query(query)
-            rows = rows.map(el => new PostDetail(el.id, el.title, el.difficulty, el.totalVote, el.estimatedTime, el.description, el.imageUrl, el.createdDate, el.AuthorId, el.authorName))
+            rows = rows.map(el => new Post(el.id, el.title, el.difficulty, el.totalVote))
             return rows
         } catch (error) {
             throw(error)
