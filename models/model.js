@@ -3,7 +3,7 @@ const { AuthorDetail, PostDetail, Author, Post } = require("./class")
 
 class Model{
     static async authors() {
-        try { //!ururtkan id
+        try {
             let query = `
             SELECT * FROM "Authors"
             ORDER BY id
