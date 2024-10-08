@@ -2,36 +2,63 @@
 <body> 
   <!-- As a heading -->
   <%- include('./partial/_navbar') %>
-  <main class="container">
-  <a type="button" class="btn btn-primary" href="/posts/add">Add Post</a>
-  <form action="/posts" method="get" class="d-flex">
-    <input type="text" name="search" class="form-control">
-    <input type="submit" value="search" class="btn btn-dark">
-  </form>
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Title</th>
-        <th scope="col">Difficulty</th>
-        <th scope="col">Total Vote</th>
-        <th scope="col">Action</th>
-      </tr>
-    </thead>
-    <tbody class="table-group-divider">
-      <% data.forEach(el => { %>
-        <tr>
-          <td><%= el.title %></td>
-          <td><%= el.difficulty %></td>
-          <td><%= el.totalVote %></td>
-          <td>
-            <a class="btn btn-primary" href="/posts/<%= el.id %>">Read More</a>
-            <a class="btn btn-warning" href="/posts/<%= el.id %>/edit">Edit</a>
-            <a class="btn btn-danger" href="/posts/<%= el.id %>/delete">Delete</a>
-          </td>
-        </tr>
-      <% }) %>
-    </tbody>
-   </table>
+  <main class="flex justify-center items-center flex-col py-24 h-screen">
+    <div class="w-[80%]">
+      <a type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" href="/posts/add">Add DIY</a>
+      <form action="/posts" method="get" class="w-full mx-auto pb-2">   
+        <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+        <div class="relative">
+            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                </svg>
+            </div>
+            <input type="text" name="search" id="default-search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search DIY" />
+            <button type="submit" value="search" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+        </div>
+      </form>
+    </div>
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg w-[80%]">
+      <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 sticky top-0 z-50">
+              <tr>
+                  <th scope="col" class="px-6 py-3">
+                      Title
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                      Difficulty
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                      Total Vote
+                  </th>
+                  <th scope="col" class="px-10 py-3 text-right">
+                      Action
+                  </th>
+              </tr>
+          </thead>
+          <tbody>
+            <% data.forEach(el => { %>
+              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                      <%= el.title %>
+                  </th>
+                  <td class="px-6 py-4">
+                      <%= el.difficulty %>
+                  </td>
+                  <td class="px-6 py-4">
+                      <%= el.totalVote %>
+                  </td>
+                  <td class="py-4 text-right">
+                    <a type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" href="/posts/<%= el.id %>">Read More</a>
+                    <a type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" href="/posts/<%= el.id %>/edit">Edit</a>
+                    <a type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" href="/posts/<%= el.id %>/delete">Delete</a>
+                  </td>
+              </tr>
+            <% }); %>
+          </tbody>
+      </table>
+    </div>
   </main>
+  <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
 </body>
 </html>
