@@ -1,26 +1,42 @@
 <%- include('./partial/_head', {title: 'Authors'}) %>
-<body style="height: 100vh;"> 
-  <!-- As a heading -->
-  <%- include('./partial/_navbar') %>
-  <main class="container d-flex flex-column justify-content-center" style="height: 90%;">
-  <a type="button" class="btn btn-primary" href="/authors/detail">Show Details</a>
-
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Author</th>
-      </tr>
-    </thead>
-    <tbody class="table-group-divider">
-      <% data.forEach(el => { %>
-        <tr>
-          <td><%= el.id %></td>
-          <td><%= el.formatName %></td>
-        </tr>
-      <% }) %>
-    </tbody>
-   </table>
-  </main>
-</body>
+  <body style="height: 100vh;"> 
+    <!-- As a heading -->
+    <%- include('./partial/_navbar') %>
+    <main class="flex justify-center items-center flex-col h-full">
+      <div class="relative overflow-x-auto shadow-md sm:rounded-lg w-[80%]">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        ID
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Author
+                    </th>
+                    <th scope="col" class="px-10 py-3 text-right">
+                        See Details
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+              <% data.forEach(el => { %>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        <%= el.id %>
+                    </th>
+                    <td class="px-6 py-4">
+                        <%= el.formatName %>
+                    </td>
+                    <td class="py-4 text-right">
+                      <a type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" href="/authors/detail">Show Details</a>
+                    </td>
+                </tr>
+                
+  <%            }); %>
+            </tbody>
+        </table>
+      </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+  </body>
 </html>
