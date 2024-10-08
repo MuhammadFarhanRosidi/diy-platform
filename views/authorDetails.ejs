@@ -2,47 +2,60 @@
 <body style="height: 100vh;"> 
   <!-- As a heading -->
   <%- include('./partial/_navbar') %>
-  <main class="container d-flex flex-column justify-content-center" style="height: 90%;">
-  <a type="button" class="btn btn-primary" href="/authors">Back to Authors</a>
-
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Author</th>
-        <th scope="col">Total Post</th>
-        <th scope="col">Total Vote</th>
-        <th scope="col">Average Estimated Time</th>
-      </tr>
-    </thead>
-    <tbody class="table-group-divider">
-      <% data.forEach(el => { %>
-        <tr>
-          <td><%= el.id %></td>
-          <td><%= el.formatName %></td>
-
-          <% if(el.totalPost == 0) { %>
-            <td><span style="color: red; font-weight: bold;"><%= el.totalPost %></span></td>
-          <% } else { %>
-            <td><%= el.totalPost %></td>
-          <% } %>
-
-          <% if(el.totalVote == 0) { %>
-            <td><span style="color: red; font-weight: bold;"><%= el.totalVote %></span></td>
-          <% } else { %>
-            <td><%= el.totalVote %></td>
-          <% } %>
-          
-          <% if(el.averageTime == 0) { %>
-            <td><span style="color: red; font-weight: bold;"><%= el.averageTime %></span></td>
-          <% } else { %>
-            <td><%= el.averageTime %></td>
-          <% } %>
-
-        </tr>
-      <% }) %>
-    </tbody>
-   </table>
+  <main class="flex justify-center items-center flex-col h-full">
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg w-[80%]">
+      <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+              <tr>
+                  <th scope="col" class="px-6 py-3">
+                      ID
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                      Author
+                  </th>
+                  <th scope="col" class="px-6 py-3 text-center">
+                      Total Post
+                  </th>
+                  <th scope="col" class="px-6 py-3 text-center">
+                      Total Vote
+                  </th>
+                  <th scope="col" class="px-6 py-3 text-center">
+                      Average Estimated Time
+                  </th>
+              </tr>
+          </thead>
+          <tbody>
+            <% data.forEach(el => { %>
+              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                  <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                      <%= el.id %>
+                  </th>
+                  <td class="px-6 py-4">
+                      <%= el.formatName %>
+                  </td>
+                  <% if(el.totalPost == 0) { %>
+                    <td class="text-center"><span style="color: red; font-weight: bold;"><%= el.totalPost %></span></td>
+                  <% } else { %>
+                    <td class="text-center"><%= el.totalPost %></td>
+                  <% } %>
+        
+                  <% if(el.totalVote == 0) { %>
+                    <td class="text-center"><span style="color: red; font-weight: bold;"><%= el.totalVote %></span></td>
+                  <% } else { %>
+                    <td class="text-center"><%= el.totalVote %></td>
+                  <% } %>
+                  
+                  <% if(el.averageTime == 0) { %>
+                    <td class="text-center"><span style="color: red; font-weight: bold;"><%= el.averageTime %></span></td>
+                  <% } else { %>
+                    <td class="text-center"><%= el.averageTime %></td>
+                  <% } %>
+              </tr>
+            <% }); %>
+          </tbody>
+      </table>
+    </div>
   </main>
+  <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
 </body>
 </html>
