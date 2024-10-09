@@ -2,58 +2,72 @@
 <body> 
   <!-- As a heading -->
   <%- include('./partial/_navbar') %>
-  <main class="container">
-    <% if(errors) { %>
-        <% errors = errors.split(",") %>
-        <% errors.forEach(el => { %>
-            <p style="color: red;"><%= el %></p>
-        <% }) %>
-    <% } %>
-    <h1>Edit New Post</h1>
-    <form action="/posts/<%= data.id %>/edit" method="post">
-        <div>
-            <label for="title">Title</label>
-            <input type="text" name="title" id="title" value="<%= data.title %>"/>
-        </div>
-        <div>
-            <div>
-                <label for="AuthorId">Author</label>
-                <select type="text" name="AuthorId" id="AuthorId">
-                    <option value="null" selected disabled>Choose</option>
-                    <% authors.forEach(el => { %>
-                        <option value="<%= el.id %>" <%= el.id === data.AuthorId ? 'selected' : '' %>><%= el.fullName %></option>
-                    <% }) %>
-                </select>
-            </div>
-            <div>
-                <label for="">Difficulty</label>
-                <select type="text" name="difficulty" id="difficulty">
-                    <option value="Easy" <%= data.difficulty === "Easy" ? 'selected' : '' %>>Easy</option>
+  <main class="flex justify-center items-center w-screen">
+    <form class="w-full pt-20" action="/posts/<%= data.id %>/edit" method="post"">
+      <% if(errors) { %>
+          <% errors = errors.split(",") %>
+          <% errors.forEach(el => { %>
+              <p style="color: red;"><%= el %></p>
+          <% }) %>            
+          <% } %>
+      <div class="mb-5">
+          <div class="max-w-sm mx-auto">
+              <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
+              <input type="text" id="title" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="Please Input Your Title" name="title" value="<%= data.title %>" />
+          </div>
+      </div>
+      <div class="mb-5">
+          <div class="max-w-sm mx-auto">
+              <label for="estimatedTime" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Estimated Time in Minutes</label>
+              <input type="number" id="estimatedTime" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" name="estimatedTime" value="<%= data.estimatedTime %>" />
+          </div>
+      </div>
+      <div class="mb-5">
+          <div class="max-w-sm mx-auto">
+              <label for="imageUrl" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Image Url</label>
+              <input type="text" id="imageUrl" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" name="imageUrl" value="<%= data.imageUrl %>" />
+          </div>
+      </div>
+      <div class="mb-5">
+          <div class="max-w-sm mx-auto">
+              <label for="difficulty" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Difficulty</label>
+              <select id="difficulty" type="text" name="difficulty" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  <option value="null" selected disabled>Choose Difficulty</option>
+                  <option value="Easy" <%= data.difficulty === "Easy" ? 'selected' : '' %>>Easy</option>
                     <option value="Medium" <%= data.difficulty === "Medium" ? 'selected' : '' %>>Medium</option>
                     <option value="Hard" <%= data.difficulty === "Hard" ? 'selected' : '' %>>Hard</option>
-                </select>
-            </div>
-            <div>
-                <label for="estimatedTime">Estimated Time</label>
-                <input type="number" name="estimatedTime" id="estimatedTime" value="<%= data.estimatedTime %>"/>
-                <label for="estimatedTime">Minutes</label>
-            </div>
-            <div>
-                <label for="imageUrl">Image Url</label>
-                <input type="text" name="imageUrl" id="imageUrl" value="<%= data.imageUrl %>"/>
-            </div>
-            <div>
-                <label for="createdDate">Created Date</label>
-                <input type="date" name="createdDate" id="createdDate" value="<%= data.createdDate.toISOString().split('T')[0] %>"/>
-            </div>
-            <div>
-                <label for="description">Description</label> <br>
-                <textarea name="description" id="description" rows="10" cols="50"><%= data.description %></textarea>
-            </div>
-            <input type="text" hidden name="totalVote" value="<%= data.totalVote %>">
-        </div>
-        <button type="submit" class="btn btn-dark">Submit</button>
-    </form>
-  </main>
+              </select>
+          </div>
+      </div>
+      <div class="mb-5">
+          <div class="max-w-sm mx-auto">
+              <label for="AuthorId" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an Author</label>
+              <select type="text" id="AuthorId" name="AuthorId" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <option value="null" selected disabled>Choose an Author</option>
+              <% authors.forEach(el => { %>
+                <option value="<%= el.id %>" <%= el.id === data.AuthorId ? 'selected' : '' %>><%= el.fullName %></option>
+            <% }) %>
+              </select>
+          </div>
+      </div>
+      <div class="mb-5">
+          <div class="max-w-sm mx-auto">
+              <label for="createdDate" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Created Date</label>
+              <input id="createdDate" name="createdDate" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date" value="<%= data.createdDate.toISOString().split('T')[0] %>">
+          </div>
+      </div>
+      <div class="mb-5">
+          <div class="max-w-sm mx-auto">
+              <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Description</label>
+              <textarea id="description" rows="4" name="description" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your descriptions here..."><%= data.description %></textarea>
+          </div>
+      </div>
+      <div class="mx-auto max-w-sm">
+          <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+      </div>
+  </form>
+</main>
+  <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
 </body>
 </html>
