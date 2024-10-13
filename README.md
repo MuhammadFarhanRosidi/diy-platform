@@ -4,7 +4,7 @@ A DIY Platform is an online platform that enables users to share and discover DI
 
 ## Demo
 
-[![](https://github.com/diy-platform/demo-diy-platform.gif)](https://youtu.be/7n7mmfkra-Q)
+[![](demo-diy-platform.gif)](https://youtu.be/7n7mmfkra-Q)
 
 ## Features
 
